@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Todo List</title>
+<style>
+.task {
+margin: 10px 0;
+padding: 10px;
+background-color: #f4f4f4;
+border-radius: 5px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.task.completed {
+text-decoration: line-through;
+background-color: #dcdcdc;
+}
+.task button {
+margin-left: 10px;
+}
+</style>
+ </head>
+ <body>
+<h2>Ma liste de tâches</h2>
+<div id="todoList">
+<div class="task" data-task-id="1">
+<span>Faire les courses</span>
+<div>
+<button class="completeTask">Accomplir</button>
+<button class="deleteTask">Supprimer</button>
+</div>
+</div>
+<div id="newTask">
+    <input type="text" id="taskInput" placeholder="New task">
+    <button id="addTaskButton">Add Task</button>
+  </div>
+  
+<script>
+    const todoList = document.querySelector('#todoList');
+    const tasks = todoList.querySelectorAll('.task');
+   const addtask = document.querySelector('#addtask');
+    tasks.forEach((task) => {
+      task.querySelector('.completeTask').addEventListener('click', () => {
+        task.classList.add('completed');
+      });
+      task.querySelector('.deleteTask').addEventListener('click', () => {
+        todoList.removeChild(task);
+      });
+    });
+  const addTaskButton = document.querySelector('#addTaskButton');
+  const taskInput = document.querySelector('#taskInput');
+
+  addTaskButton.addEventListener('click', () => {
+    const newTask = document.createElement('div');
+    newTask.className = 'task';
+    newTask.innerHTML = `
+      <span>${taskInput.value}</span>
+      <div>
+        <button class="completeTask">Accomplir</button>
+        <button class="deleteTask">Supprimer</button>
+      </div>`;
+    newTask.querySelector('.completeTask').addEventListener('click', () => {
+      newTask.classList.add('completed');
+    });
+    newTask.querySelector('.deleteTask').addEventListener('click', () => {
+      todoList.removeChild(newTask);
+    });
+    todoList.appendChild(newTask);
+    taskInput.value = '';
+  });
+   </script>
+   
+</body>
+</html>
